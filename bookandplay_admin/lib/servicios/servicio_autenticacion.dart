@@ -23,6 +23,15 @@ class AuthService {
         return errorInterno;
       }
 
+      //* Valida si el correo es administrador
+      //? NOTA: para que el usuario sea admin se agrega ese campo en el firestore con el valor true de forma manual
+      final perfil = await FirestoreService().traerPerfil(correo);
+
+      if (perfil == null || perfil.admin == null) {
+        validacionController.error = true;
+        return 'El usuario no es administrador';
+      }
+
       //* Intenta inicio de sesion
       final cred = await _auth.signInWithEmailAndPassword(
         email: correo,
@@ -35,11 +44,8 @@ class AuthService {
       await GetStorage().remove('usuarioDocId');
       if (docId != null) await GetStorage().write('usuarioDocId', docId);
 
-      final perfil = await FirestoreService().traerPerfil(correo);
-      if (perfil != null) {
-        GetStorage().write('usuarioAvatar', perfil.nombre![0].toUpperCase());
-        GetStorage().write('usuarioTelefono', perfil.telefono);
-      }
+      GetStorage().write('usuarioAvatar', perfil.nombre![0].toUpperCase());
+      GetStorage().write('usuarioTelefono', perfil.telefono);
 
       validacionController.error = false;
       return cred.user!.email.toString();

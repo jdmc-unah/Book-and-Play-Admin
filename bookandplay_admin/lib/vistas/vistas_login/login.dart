@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
           //*Imagen de fondo
           Positioned.fill(
             child: Image.asset(
-              "assets/imagenes/fondo_login_medio.png",
+              "assets/imagenes/fondologin_transp.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -53,14 +53,14 @@ class Login extends StatelessWidget {
                     '¡Bienvenido!',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 20),
 
                   Row(
                     children: [
-                      Text('Ingresa, reserva y que empiece la potra'),
-                      SizedBox(width: 10),
-                      Icon(Icons.sports_soccer_rounded),
+                      Text('Ingresa tu usuario y contraseña para iniciar'),
                     ],
                   ),
+
                   SizedBox(height: 30),
 
                   LoginTextField(
@@ -80,7 +80,7 @@ class Login extends StatelessWidget {
                     controller: _contra,
                   ),
 
-                  SizedBox(height: 30),
+                  SizedBox(height: 40),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
